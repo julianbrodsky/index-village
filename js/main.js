@@ -5,6 +5,7 @@ import { buildWorld } from './world/world.js';
 import { showSetup } from './setup.js';
 import { createGame } from './game.js';
 import { bindPointer } from './input.js';
+import { requireGate } from './gate.js';
 
 const canvas = document.getElementById('game');
 const hud = { place: document.getElementById('place'), total: document.getElementById('total') };
@@ -24,4 +25,5 @@ function openSetup() {
 }
 
 document.getElementById('edit').addEventListener('click', openSetup);
+await requireGate();
 openSetup();

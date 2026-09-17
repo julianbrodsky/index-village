@@ -6,6 +6,10 @@ export const PLAYER_SPEED = 76;    // world px per second, a brisk walk of ~5 ti
 export const FADE_SECONDS = 0.2;   // door transitions, long enough to read as a cut
 export const STORAGE_KEY = 'index-village.dollars.v1';
 
+// SHA-256 of the access password. Only a speed bump: see js/gate.js.
+export const GATE_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+export const GATE_KEY = 'index-village.unlocked.v1';
+
 export const LABEL_FONT_PX = 11;   // css px, multiplied by devicePixelRatio
 
 export const HOUSE = {

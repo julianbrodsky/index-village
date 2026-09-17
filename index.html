@@ -18,7 +18,19 @@
     <button id="edit" type="button">Edit fund</button>
   </div>
 
-  <div id="setup" hidden>
+  <div id="gate" class="overlay">
+    <form class="card">
+      <h1>Index Village</h1>
+      <label class="fund">
+        <span>Password</span>
+        <input id="password" type="password" autocomplete="current-password">
+      </label>
+      <p class="err"></p>
+      <button type="submit">Unlock</button>
+    </form>
+  </div>
+
+  <div id="setup" class="overlay" hidden>
     <form class="card">
       <h1>Index Village</h1>
       <p>How much do you have in an S&amp;P 500 index fund? The ten biggest

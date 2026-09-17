@@ -20,6 +20,7 @@ Bump the port if the browser pane serves stale modules.
 | `js/data/companies.js` | Index total cap, the top 10, market caps, product lines. |
 | `js/data/berkshire.js` | Berkshire's lines (subsidiaries plus look-through stakes). |
 | `js/econ.js` | Pure math and formatting: ownership, attributable units, profit. No DOM. |
+| `js/gate.js` | Password screen. A speed bump only, the hash ships to the browser. |
 | `js/setup.js` | The fund dollars screen, and localStorage for the amount. |
 | `js/input.js` | WASD / arrows / pointer into one direction vector. |
 | `js/art/sprites.js` | Product icons as character grids plus a palette. |

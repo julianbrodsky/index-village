@@ -61,7 +61,7 @@ export function buildVillage(summaries) {
     paths.push({ x: house.doorX - 3, y: bottom, w: house.doorW + 6, h: T });
     props.push({
       sortY: bottom, draw: (ctx, t) => drawHouse(ctx, house, t),
-      labels: [{ x: x + p.w / 2, y: y - 44, lines: [
+      labels: [{ x: x + p.w / 2, y: y - 4, lines: [
         title,
         { text: `${fmtMoney(p.summary.invested)} of your fund`, color: C.textDim },
         { text: fmtProfit(p.summary.profit), color: p.summary.profit < 0 ? C.loss : C.profit },
