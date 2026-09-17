@@ -19,6 +19,9 @@ html, body {
 }
 
 #hud {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));
   left: calc(10px + env(safe-area-inset-left));
@@ -34,7 +37,21 @@ html, body {
 #total { color: #7fe08e; }
 .hint { color: #b8b3c8; }
 
-#hud button, #jump, .card button {
+/* Collapsed, the panel is just this arrow, so the village stays visible */
+#hud-toggle {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  color: #ffd66b;
+  background: #2c3550;
+  border: 2px solid #4e5a74;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+#hud.collapsed { padding: 4px; }
+#hud.collapsed #hud-body { display: none; }
+
+#hud-body button, #jump, .card button {
   font: inherit;
   font-weight: 700;
   color: #23202e;

@@ -11,14 +11,17 @@
   <canvas id="game"></canvas>
 
   <div id="hud">
-    <div class="hud-title">Index Village</div>
-    <div id="place"></div>
-    <div id="total"></div>
-    <div class="hint">WASD to walk, Shift to run</div>
-    <div class="hud-row">
-      <button id="edit" type="button">Edit fund</button>
-      <select id="jump" aria-label="Jump to a company"></select>
+    <div id="hud-body">
+      <div class="hud-title">Index Village</div>
+      <div id="place"></div>
+      <div id="total"></div>
+      <div class="hint">WASD to walk, Shift to run</div>
+      <div class="hud-row">
+        <button id="edit" type="button">Edit fund</button>
+        <select id="jump" aria-label="Jump to a company"></select>
+      </div>
     </div>
+    <button id="hud-toggle" type="button" aria-expanded="true" aria-label="Collapse the panel">&#9664;</button>
   </div>
 
   <div id="gate" class="overlay">

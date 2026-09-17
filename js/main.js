@@ -40,6 +40,23 @@ function openSetup() {
   showSetup(start);
 }
 
+// The panel covers a good part of a phone screen, so it folds away to one arrow
+const panel = document.getElementById('hud');
+const toggle = document.getElementById('hud-toggle');
+const HUD_KEY = 'index-village.hud.v1';
+function setCollapsed(collapsed) {
+  panel.classList.toggle('collapsed', collapsed);
+  toggle.textContent = collapsed ? '\u25B6' : '\u25C0';
+  toggle.setAttribute('aria-expanded', String(!collapsed));
+  toggle.setAttribute('aria-label', collapsed ? 'Expand the panel' : 'Collapse the panel');
+  try { localStorage.setItem(HUD_KEY, collapsed ? '1' : '0'); } catch { /* private mode, fine */ }
+}
+toggle.addEventListener('click', () => {
+  setCollapsed(!panel.classList.contains('collapsed'));
+  toggle.blur(); // hand the keys back to walking
+});
+try { setCollapsed(localStorage.getItem(HUD_KEY) === '1'); } catch { /* start expanded */ }
+
 document.getElementById('edit').addEventListener('click', openSetup);
 await requireGate();
 openSetup();
