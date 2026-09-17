@@ -22,8 +22,9 @@
 import { SP500 } from './sp500.js';
 import { SECTOR_COLORS } from '../config.js';
 import batch01 from './lines/batch-01.js';
+import batch02 from './lines/batch-02.js';
 
-const LINES = { ...batch01 };
+const LINES = { ...batch01, ...batch02 };
 
 export const INDEX_MARKET_CAP = SP500.reduce((sum, c) => sum + c[3], 0);
 
