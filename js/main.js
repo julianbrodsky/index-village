@@ -25,7 +25,7 @@ function start(dollars) {
 function fillJumpMenu(world) {
   const jump = document.getElementById('jump');
   const houses = [...world.houses].sort((a, b) => a.summary.company.name.localeCompare(b.summary.company.name));
-  jump.replaceChildren(new Option(`Jump to a company (${houses.length})`, ''),
+  jump.replaceChildren(new Option('Jump to a company', ''),
     ...houses.map((h, i) => new Option(`${h.summary.company.name} (${h.summary.company.ticker})`, i)));
   jump.onchange = () => {
     const house = houses[jump.value];
