@@ -33,6 +33,16 @@ html, body {
 .hud-title { font-weight: 700; color: #ffd66b; }
 #total { color: #7fe08e; }
 .hint { color: #b8b3c8; }
+#jump {
+  display: block;
+  max-width: 100%;
+  margin-top: 6px;
+  font: inherit;
+  color: #23202e;
+  background: #f3ead7;
+  border: 3px solid #23202e;
+  padding: 2px 4px;
+}
 #hud button, .card button {
   font: inherit;
   font-weight: 700;

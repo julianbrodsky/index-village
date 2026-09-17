@@ -19,7 +19,9 @@ function measure(summary) {
 export function buildVillage(summaries) {
   const sorted = [...summaries].sort((a, b) => (b.invested > 0) - (a.invested > 0) || b.profit - a.profit);
   const plots = sorted.map(measure);
-  const cols = Math.min(HOUSE.cols, plots.length), rows = Math.ceil(plots.length / cols);
+  // Roughly square once the village outgrows HOUSE.cols, so no house is a marathon away
+  const cols = Math.min(Math.max(HOUSE.cols, Math.ceil(Math.sqrt(plots.length))), plots.length);
+  const rows = Math.ceil(plots.length / cols);
   const colW = Math.max(...plots.map(p => p.w)) + HOUSE.gapTiles * T;
   const rowH = Math.max(...plots.map(p => p.h)) + 6 * T; // headroom for smoke and labels
   const margin = 3 * T;
@@ -49,18 +51,19 @@ export function buildVillage(summaries) {
     if (p.lot) {
       const lot = { x, y, w: p.w, h: p.h };
       props.push({
-        sortY: y, draw: ctx => drawLot(ctx, lot),
+        sortY: y, draw: ctx => drawLot(ctx, lot), bounds: { x, y: y - 40, w: p.w, h: p.h + 40 },
         labels: [{ x: x + p.w / 2, y: y - 8, lines: [title, { text: 'Not owned yet', color: C.textDim }] }],
       });
       return;
     }
 
     const house = { x, y, w: p.w, h: p.h, wallH: p.wallH, roofH: p.roofH, color: company.color, doorW: 22,
-      sprite: company.lines[0].sprite, tint: company.lines[0].tint };
+      sprite: company.lines[0].sprite, tint: company.lines[0].tint ?? company.color };
     house.doorX = Math.round(x + p.w / 2 - house.doorW / 2);
     paths.push({ x: house.doorX - 3, y: bottom, w: house.doorW + 6, h: T });
     props.push({
       sortY: bottom, draw: (ctx, t) => drawHouse(ctx, house, t),
+      bounds: { x: x - 6, y: y - 50, w: p.w + 12, h: p.h + 60 },
       labels: [{ x: x + p.w / 2, y: y - 4, lines: [
         title,
         { text: `${fmtMoney(p.summary.invested)} of your fund`, color: C.textDim },
@@ -79,16 +82,18 @@ export function buildVillage(summaries) {
   for (let x = T; x < w; x += 26) trees.push([x, 2 * T], [x + 13, h - 4]);
   for (let y = 3 * T; y < h - T; y += 26) trees.push([T, y], [w - T, y]);
   for (const [tx, ty] of trees) {
-    props.push({ sortY: ty, draw: ctx => drawTree(ctx, tx, ty) });
+    props.push({ sortY: ty, draw: ctx => drawTree(ctx, tx, ty), bounds: { x: tx - 14, y: ty - 30, w: 28, h: 34 } });
     solids.push({ x: tx - 4, y: ty - 5, w: 8, h: 5 });
   }
 
   return {
     id: 'village', title: 'The village', w, h, houses, props, solids, triggers,
-    spawn: { x: w / 2, y: margin + rowH - 2 * T + 12 },
+    spawn: houses[0]?.doorSpawn ?? { x: w / 2, y: margin + rowH - 2 * T + 12 },
     ground(ctx, view) {
       drawGrass(ctx, view);
-      for (const p of paths) drawPath(ctx, p);
+      for (const p of paths) {
+        if (p.x < view.x + view.w && p.x + p.w > view.x && p.y < view.y + view.h && p.y + p.h > view.y) drawPath(ctx, p);
+      }
     },
   };
 }

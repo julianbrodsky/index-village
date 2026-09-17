@@ -18,7 +18,7 @@ function makeMachine(entry, company, cx, cy) {
     beltLen: MACHINE.cellW - bw - 36,
     period: clamp(MACHINE.maxPeriod - s * 0.25, MACHINE.minPeriod, MACHINE.maxPeriod),
     clock: Math.random() * 3, stamped: -1, items: [], stacked: 0,
-    color: company.color, sprite: line.sprite, tint: line.tint,
+    color: company.color, sprite: line.sprite, tint: line.tint ?? company.color,
   };
 
   const lines = [{ text: line.name, color: C.text }];

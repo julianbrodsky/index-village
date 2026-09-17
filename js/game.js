@@ -1,9 +1,9 @@
 // The loop: input, collision, door triggers, fades, camera, and drawing.
 // Knows scenes only through the contract documented in CLAUDE.md.
 
-import { TILE, VIEW_TILES, PLAYER_SPEED, FADE_SECONDS, LABEL_FONT_PX, COLORS as C } from './config.js';
+import { TILE, VIEW_TILES, PLAYER_SPEED, RUN_MULTIPLIER, FADE_SECONDS, LABEL_FONT_PX, COLORS as C } from './config.js';
 import { drawPlayer } from './art/draw.js';
-import { readInput, setPlayerScreen, clearInput } from './input.js';
+import { readInput, isRunning, setPlayerScreen, clearInput } from './input.js';
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const overlaps = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
@@ -11,7 +11,6 @@ const overlaps = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h
 export function createGame(canvas, hud) {
   const ctx = canvas.getContext('2d');
   const player = { x: 0, y: 0, dir: 'down', moving: false, animT: 0 };
-  const playerProp = { sortY: 0, draw: c => drawPlayer(c, player) };
   let world = null, scene = null, fade = null, paused = true;
   let dpr = 1, zoom = 3, time = 0, last = performance.now();
 
@@ -26,9 +25,10 @@ export function createGame(canvas, hud) {
   resize();
 
   function enter(id, spawn) {
-    scene = world.scenes[id];
-    player.x = spawn.x;
-    player.y = spawn.y;
+    scene = world.scene(id);
+    // Props never move, so sort once per scene instead of every frame
+    scene.sorted ??= [...scene.props].sort((a, b) => a.sortY - b.sortY);
+    ({ x: player.x, y: player.y } = spawn ?? scene.spawn);
     hud.place.textContent = scene.title;
   }
 
@@ -59,9 +59,10 @@ export function createGame(canvas, hud) {
     const v = paused ? { x: 0, y: 0 } : readInput();
     player.moving = v.x !== 0 || v.y !== 0;
     if (!player.moving) return;
-    player.animT += dt;
+    player.animT += dt * (isRunning() ? 1.6 : 1);
     player.dir = Math.abs(v.x) > Math.abs(v.y) ? (v.x < 0 ? 'left' : 'right') : (v.y < 0 ? 'up' : 'down');
-    move(v.x * PLAYER_SPEED * dt, v.y * PLAYER_SPEED * dt);
+    const speed = PLAYER_SPEED * (isRunning() ? RUN_MULTIPLIER : 1) * dt;
+    move(v.x * speed, v.y * speed);
     const hit = scene.triggers.find(t => t.to && overlaps(feet(), t));
     if (hit) fade = { t: 0, to: hit.to };
   }
@@ -71,6 +72,7 @@ export function createGame(canvas, hud) {
     const camX = scene.w <= vw ? (scene.w - vw) / 2 : clamp(player.x - vw / 2, 0, scene.w - vw);
     const camY = scene.h <= vh ? (scene.h - vh) / 2 : clamp(player.y - 12 - vh / 2, 0, scene.h - vh);
     const ox = Math.round(camX * zoom), oy = Math.round(camY * zoom);
+    const view = { x: camX, y: camY, w: vw, h: vh };
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = C.outline;
@@ -78,10 +80,15 @@ export function createGame(canvas, hud) {
     ctx.setTransform(zoom, 0, 0, zoom, -ox, -oy);
     ctx.imageSmoothingEnabled = false;
 
-    scene.ground(ctx, { x: camX, y: camY, w: vw, h: vh });
-    playerProp.sortY = player.y;
-    const drawables = [...scene.props, playerProp].sort((a, b) => a.sortY - b.sortY);
-    for (const d of drawables) d.draw?.(ctx, time);
+    scene.ground(ctx, view);
+    // Walk the pre-sorted props, slotting the player in by feet y and skipping
+    // anything whose bounds are off screen. This is what keeps 500 houses cheap.
+    let playerDrawn = false;
+    for (const p of scene.sorted) {
+      if (!playerDrawn && p.sortY > player.y) { drawPlayer(ctx, player); playerDrawn = true; }
+      if (p.draw && (!p.bounds || overlaps(p.bounds, view))) p.draw(ctx, time);
+    }
+    if (!playerDrawn) drawPlayer(ctx, player);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     drawLabels(ox, oy);
@@ -97,18 +104,23 @@ export function createGame(canvas, hud) {
   // Labels live in screen space so text stays sharp and readable at any zoom.
   function drawLabels(ox, oy) {
     const fs = Math.round(LABEL_FONT_PX * dpr), lh = Math.round(fs * 1.3), pad = Math.round(4 * dpr);
+    const margin = 400 * dpr; // generous, labels are never wider or taller than this
     ctx.font = `600 ${fs}px ui-monospace, Menlo, Consolas, monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    for (const p of scene.props) {
+    for (const p of scene.sorted) {
       for (const lb of p.labels || []) {
         const sx = lb.x * zoom - ox, sy = lb.y * zoom - oy;
-        const bw = Math.max(...lb.lines.map(l => ctx.measureText(l.text).width)) + pad * 2;
+        if (sy < 0 || sy - margin > canvas.height || sx < -margin || sx - margin > canvas.width) continue;
+        // measureText is the slow part, so widths are cached until the font size changes
+        if (lb.fs !== fs) {
+          lb.fs = fs;
+          lb.bw = Math.max(...lb.lines.map(l => ctx.measureText(l.text).width)) + pad * 2;
+        }
         const bh = lb.lines.length * lh + pad * 2 - (lh - fs);
         const top = sy - bh;
-        if (sx + bw / 2 < 0 || sx - bw / 2 > canvas.width || sy < 0 || top > canvas.height) continue;
         ctx.fillStyle = C.labelBg;
-        ctx.fillRect(Math.round(sx - bw / 2), Math.round(top), Math.round(bw), Math.round(bh));
+        ctx.fillRect(Math.round(sx - lb.bw / 2), Math.round(top), Math.round(lb.bw), Math.round(bh));
         lb.lines.forEach((l, i) => {
           ctx.fillStyle = l.color;
           ctx.fillText(l.text, Math.round(sx), Math.round(top + pad + i * lh));
@@ -130,9 +142,10 @@ export function createGame(canvas, hud) {
     load(newWorld, startId) {
       world = newWorld;
       fade = null;
-      const id = world.scenes[startId] ? startId : world.start;
-      enter(id, world.scenes[id].spawn);
+      enter(startId && world.scene(startId) ? startId : world.start);
     },
+    // Fade to any scene, used by the jump menu
+    teleport(id, spawn) { fade = { t: 0, to: { scene: id, spawn } }; },
     setPaused(value) { paused = value; clearInput(); },
   };
 }

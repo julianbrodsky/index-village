@@ -22,7 +22,7 @@ export function showSetup(onDone) {
     const dollars = parseFloat(input.value) || 0;
     const summaries = summarizeFund(dollars);
     est.textContent = dollars > 0
-      ? `Top 10 slice: ${fmtMoney(summaries.reduce((s, x) => s + x.invested, 0))}, ${fmtProfit(summaries.reduce((s, x) => s + x.profit, 0))}`
+      ? `In the ${summaries.length} companies built so far: ${fmtMoney(summaries.reduce((s, x) => s + x.invested, 0))}, ${fmtProfit(summaries.reduce((s, x) => s + x.profit, 0))}`
       : '';
   };
   input.oninput = refresh;

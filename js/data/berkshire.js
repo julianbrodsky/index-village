@@ -5,8 +5,7 @@
 // See js/data/companies.js for the line field reference.
 
 export const BERKSHIRE = {
-  ticker: 'BRK.B', name: 'Berkshire Hathaway', color: '#3b5b92',
-  marketCap: 1.05e12,
+  name: 'Berkshire Hathaway', color: '#3b5b92',
   lines: [
     // Wholly owned operating businesses
     { name: 'BNSF freight', unit: 'railcar', perYear: 9.8e6, profitPerUnit: 520, sprite: 'container', tint: '#e07a2c' },

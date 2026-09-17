@@ -6,15 +6,17 @@ const DIRS = {
 };
 
 const keys = new Set();
+let shift = false;
 let pointer = null;
 let player = { x: 0, y: 0 };
 
 addEventListener('keydown', e => {
-  if (!DIRS[e.code] || e.target instanceof HTMLInputElement) return;
+  shift = e.shiftKey;
+  if (!DIRS[e.code] || e.target instanceof HTMLInputElement || e.target instanceof HTMLSelectElement) return;
   keys.add(e.code);
   e.preventDefault();
 });
-addEventListener('keyup', e => keys.delete(e.code));
+addEventListener('keyup', e => { shift = e.shiftKey; keys.delete(e.code); });
 addEventListener('blur', () => keys.clear());
 
 // Touch fallback: hold anywhere and the player walks toward your finger.
@@ -28,6 +30,8 @@ export function bindPointer(el) {
   el.addEventListener('pointerup', release);
   el.addEventListener('pointercancel', release);
 }
+
+export const isRunning = () => shift;
 
 export function setPlayerScreen(x, y) { player = { x, y }; }
 

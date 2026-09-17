@@ -3,6 +3,7 @@
 export const TILE = 16;            // world px per tile
 export const VIEW_TILES = 18;      // tiles visible across the short side of the screen
 export const PLAYER_SPEED = 76;    // world px per second, a brisk walk of ~5 tiles
+export const RUN_MULTIPLIER = 2.5; // hold Shift. The full index village is a long walk
 export const FADE_SECONDS = 0.2;   // door transitions, long enough to read as a cut
 export const STORAGE_KEY = 'index-village.dollars.v1';
 
@@ -15,7 +16,7 @@ export const LABEL_FONT_PX = 11;   // css px, multiplied by devicePixelRatio
 export const HOUSE = {
   minW: 7, maxW: 16,     // tiles. A $1/yr stake gets the small cottage, billions get a warehouse
   tilesPerDecade: 1.1,   // extra width per 10x of attributable profit
-  cols: 4,  // ten houses fit in three rows
+  cols: 4,  // minimum. Bigger villages go square, see village.js
   gapTiles: 4,
 };
 
@@ -25,6 +26,21 @@ export const MACHINE = {
   beltSpeed: 22,            // px per second
   // Press cycle in seconds. Bigger output stamps faster, but capped so it stays readable.
   minPeriod: 0.35, maxPeriod: 2.8,
+};
+
+// House colours by GICS sector, nudged per ticker in js/data/companies.js
+export const SECTOR_COLORS = {
+  'Information Technology': '#3f7fc8',
+  'Communication Services': '#8a5bb0',
+  'Consumer Discretionary': '#e07a2c',
+  'Consumer Staples': '#6fae2e',
+  'Health Care': '#d2334a',
+  'Financials': '#2f6f5a',
+  'Industrials': '#7d8796',
+  'Energy': '#3a3f4f',
+  'Utilities': '#e0b52e',
+  'Real Estate': '#9a6a44',
+  'Materials': '#5aa0a0',
 };
 
 export const COLORS = {
