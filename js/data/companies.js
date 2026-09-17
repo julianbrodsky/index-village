@@ -31,8 +31,9 @@ import batch07 from './lines/batch-07.js';
 import batch08 from './lines/batch-08.js';
 import batch09 from './lines/batch-09.js';
 import batch10 from './lines/batch-10.js';
+import batch11 from './lines/batch-11.js';
 
-const LINES = { ...batch01, ...batch02, ...batch03, ...batch04, ...batch05, ...batch06, ...batch07, ...batch08, ...batch09, ...batch10 };
+const LINES = { ...batch01, ...batch02, ...batch03, ...batch04, ...batch05, ...batch06, ...batch07, ...batch08, ...batch09, ...batch10, ...batch11 };
 
 export const INDEX_MARKET_CAP = SP500.reduce((sum, c) => sum + c[3], 0);
 

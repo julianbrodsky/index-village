@@ -87,7 +87,7 @@ export default {
     ['Homes built & sold', 'home', 2.3e4, 70000, 'house'],
   ],
   LDOS: [
-    ['Government IT & security contracts', 'contract-year', 1.2e4, 130000, 'shield'],
+    ['Government IT contracts', 'contract-year', 1.2e4, 130000, 'shield'],
   ],
   IEX: [
     ['Pumps & flow meters', 'unit', 2.0e6, 400, 'drop'],
@@ -138,7 +138,7 @@ export default {
     ['Reinsurance policies', 'policy-year', 3.0e6, 500, 'shield', '', 'policies'],
   ],
   AIZ: [
-    ['Phone & renter protection plans', 'plan-year', 6.0e7, 15, 'shield'],
+    ['Device protection plans', 'plan-year', 6.0e7, 15, 'shield'],
   ],
   TXT: [
     ['Cessna & Beechcraft planes', 'plane', 800, 700000, 'plane'],

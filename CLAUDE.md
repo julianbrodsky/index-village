@@ -1,7 +1,7 @@
 # Index Village
 
 A top down pixel village for an S&P 500 index fund. You enter the dollars you
-hold, the largest companies each get a house, and inside each house
+hold, all 500 index companies each get a house, and inside each house
 machines stamp out the slice of that company's real products your dollars
 account for. Forked from share-village, which asks for per-stock share counts.
 Ownership is dollars / INDEX_MARKET_CAP for every company. Plain static files, no build, no deps.
@@ -19,8 +19,9 @@ Bump the port if the browser pane serves stale modules.
 | `js/config.js` | Every tunable number and colour. Change feel here first. |
 | `js/data/companies.js` | Joins the index list with the line batches. Formats documented here. |
 | `js/data/sp500.js` | Generated list: ticker, name, sector, market cap for all 500. |
-| `js/data/lines/batch-*.js` | Hand written product lines, keyed by ticker, added a batch at a time. |
+| `js/data/lines/batch-*.js` | Hand written product lines, keyed by ticker. Batches 1 to 11 cover all 500. |
 | `tools/fetch_sp500.py` | Refreshes sp500.js from stockanalysis.com and Wikipedia. |
+| `tools/check_data.js` | Sanity check: sprite keys, field types, label lengths, coverage. |
 | `js/data/berkshire.js` | Berkshire's lines (subsidiaries plus look-through stakes). |
 | `js/econ.js` | Pure math and formatting: ownership, attributable units, profit. No DOM. |
 | `js/gate.js` | Password screen. A speed bump only, the hash ships to the browser. |
