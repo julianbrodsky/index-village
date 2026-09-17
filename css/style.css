@@ -48,6 +48,12 @@ html, body {
   padding: 3px 5px;
   cursor: pointer;
 }
+/* A flex item will not shrink past its contents unless told to, and the
+   select's widest option is wide, so both need an explicit zero minimum */
+#hud-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 #hud.collapsed { padding: 4px; }
 #hud.collapsed #hud-body { display: none; }
 
@@ -62,14 +68,16 @@ html, body {
 }
 .hud-row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 6px;
   margin-top: 6px;
 }
 /* The select matches the button, plus a caret so it reads as a dropdown */
 #jump {
-  flex: 1 1 60px;
+  /* Wide enough to read its label, but it drops to its own line when a narrow
+     screen cannot fit it beside the button */
+  flex: 1 1 140px;
   min-width: 0;
   text-overflow: ellipsis;
   appearance: none;
