@@ -93,6 +93,7 @@ const SPRITES = {
   disk: ['kkkkkkkkkk', 'kSSSSSSSSk', 'kSkkkkSSSk', 'kSkeekSSSk', 'kSkkkkSSgk', 'kSSSSSSSSk', 'kkkkkkkkkk'],
   pizza: ['kkkkkkkkk', 'kyyyyyyyk', '.kyRyyRk.', '.kyyyyyk.', '..kyRyk..', '..kyyyk..', '...kyk...', '....k....'],
   dice: ['kkkkkkk', 'kwwwwwk', 'kwkwwwk', 'kwwkwwk', 'kwwwkwk', 'kwwwwwk', 'kkkkkkk'],
+  tree: ['...kk...', '..kggk..', '.kggggk.', 'kgggggk.', '..knnk..', '..knnk..', '..kkkk..'],
   box: ['kkkkkkkk', 'knnnnnnk', 'kNNNNNNk', 'knnnnnnk', 'kkkkkkkk'],
 };
 

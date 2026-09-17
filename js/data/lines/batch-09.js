@@ -144,7 +144,7 @@ export default {
   ],
   STE: [
     ['Surgical sterilizers', 'unit', 6.0e4, 9000, 'flask'],
-    ['Instrument sterilisation cycles', 'cycle', 3.0e8, 2, 'tool'],
+    ['Sterilisation cycles run', 'cycle', 3.0e8, 2, 'tool'],
   ],
   CF: [
     ['Fertilizer made', 'ton', 2.0e7, 90, 'sack'],
