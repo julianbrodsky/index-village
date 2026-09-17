@@ -58,7 +58,7 @@ export default {
     ['Security subscriptions', 'sub-year', 1.0e7, 300, 'shield'],
   ],
   PLTR: [
-    ['Government & company deployments', 'deployment', 1.2e4, 120000, 'app'],
+    ['Government & company installs', 'install', 1.2e4, 120000, 'app'],
   ],
   CVX: [
     ['Oil & gas produced', 'barrel', 1.2e9, 12, 'barrel'],
