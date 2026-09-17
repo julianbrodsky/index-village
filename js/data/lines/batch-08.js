@@ -53,7 +53,7 @@ export default {
     ['Oscar Mayer meat packs', 'pack', 1.0e9, 0.3, 'meat'],
   ],
   RDDT: [
-    ['Ads served', 'ad', 6.0e11, 0.000015, 'search'],
+    ['Ads served', 'ad', 1.5e12, 0.0003, 'search'],
   ],
   GEHC: [
     ['MRI & CT scanners', 'scanner', 2.5e4, 150000, 'heart'],

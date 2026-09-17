@@ -18,9 +18,9 @@ export default {
     ['Console & graphics chips', 'chip', 4.0e7, 15, 'controller'],
   ],
   WMT: [
-    ['Checkouts rung up', 'checkout', 1.0e10, 0.35, 'cart'],
-    ['Online orders delivered', 'order', 2.0e9, 0.5, 'box'],
-    ['Prescriptions filled', 'prescription', 3.0e8, 1.5, 'pills'],
+    ['Checkouts rung up', 'checkout', 1.0e10, 1.5, 'cart'],
+    ['Online orders delivered', 'order', 2.0e9, 1.0, 'box'],
+    ['Prescriptions filled', 'prescription', 3.0e8, 2, 'pills'],
   ],
   V: [
     ['Payments processed', 'payment', 2.4e11, 0.09, 'card'],

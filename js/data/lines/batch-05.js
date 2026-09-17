@@ -11,8 +11,8 @@ export default {
     ['Chocolate bars', 'bar', 1.5e10, 0.1, 'candy'],
   ],
   CTAS: [
-    ['Uniforms rented & cleaned', 'uniform-week', 4.0e8, 0.7, 'shirt'],
-    ['First aid & safety refills', 'refill', 4.0e7, 6, 'shield'],
+    ['Uniforms rented & cleaned', 'uniform-week', 4.0e8, 2.5, 'shirt'],
+    ['First aid & safety refills', 'refill', 4.0e7, 15, 'shield'],
   ],
   TRV: [
     ['Policies in force', 'policy-year', 1.6e7, 250, 'shield', '', 'policies'],
@@ -174,7 +174,7 @@ export default {
     ['Aircraft parts sold', 'part', 4.0e6, 1500, 'plane'],
   ],
   COR: [
-    ['Drug packs distributed', 'pack', 7.0e9, 0.05, 'box'],
+    ['Drug packs distributed', 'pack', 7.0e9, 0.25, 'box'],
   ],
   OXY: [
     ['Oil & gas produced', 'barrel', 5.1e8, 8, 'barrel'],

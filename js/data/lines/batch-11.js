@@ -64,7 +64,7 @@ export default {
     ['Apartments.com listings', 'listing-year', 1.2e6, 400, 'key'],
   ],
   IT: [
-    ['Research subscriptions', 'sub-year', 1.5e5, 20000, 'chart'],
+    ['Research subscriptions', 'sub-year', 1.5e5, 7000, 'chart'],
     ['Conferences & seats sold', 'seat', 1.5e5, 1500, 'ticket'],
   ],
   UDR: [

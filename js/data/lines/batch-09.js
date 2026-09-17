@@ -85,7 +85,7 @@ export default {
     ['Truckloads delivered', 'load', 1.5e6, 150, 'truck'],
   ],
   CHTR: [
-    ['Broadband lines served', 'line-year', 3.0e7, 300, 'router'],
+    ['Broadband lines served', 'line-year', 3.0e7, 150, 'router'],
     ['Mobile lines served', 'line-year', 1.1e7, 60, 'phone'],
   ],
   PHM: [
