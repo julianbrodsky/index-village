@@ -90,7 +90,7 @@ export default {
     ['Microcontrollers', 'chip', 5.0e9, 0.25, 'chip'],
   ],
   YUM: [
-    ['KFC, Taco Bell & Pizza Hut meals', 'meal', 8.0e9, 0.2, 'pizza'],
+    ['KFC & Taco Bell meals', 'meal', 8.0e9, 0.2, 'pizza'],
     ['Franchise restaurants run', 'store-year', 6.0e4, 20000, 'building'],
   ],
   ROP: [
@@ -162,7 +162,7 @@ export default {
     ['Deposit accounts held', 'account-year', 8.0e6, 220, 'bill'],
   ],
   ACGL: [
-    ['Reinsurance & specialty policies', 'policy-year', 5.0e6, 600, 'shield', '', 'policies'],
+    ['Reinsurance policies', 'policy-year', 5.0e6, 600, 'shield', '', 'policies'],
   ],
   KMB: [
     ['Diapers & wipes packs', 'pack', 2.0e9, 0.7, 'roll'],
