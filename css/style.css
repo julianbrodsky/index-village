@@ -1,0 +1,79 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #23202e;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  color: #f7f3ea;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  display: block;
+}
+
+#hud {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  left: calc(10px + env(safe-area-inset-left));
+  padding: 8px 10px;
+  background: #2c3550;
+  border: 3px solid #161a28;
+  box-shadow: inset 0 0 0 2px #4e5a74;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 60vw;
+}
+.hud-title { font-weight: 700; color: #ffd66b; }
+#total { color: #7fe08e; }
+.hint { color: #b8b3c8; }
+#hud button, .card button {
+  font: inherit;
+  font-weight: 700;
+  color: #23202e;
+  background: #ffd66b;
+  border: 3px solid #23202e;
+  padding: 4px 10px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+#setup {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(20, 16, 30, 0.7);
+  overflow-y: auto;
+}
+#setup[hidden] { display: none; }
+
+.card {
+  width: min(560px, 100%);
+  background: #f3ead7;
+  color: #23202e;
+  border: 4px solid #23202e;
+  box-shadow: 6px 6px 0 #23202e;
+  padding: 18px;
+}
+.card h1 { margin: 0 0 6px; font-size: 22px; }
+.card p { margin: 0 0 12px; font-size: 13px; line-height: 1.5; }
+.card .fine { margin: 12px 0 0; font-size: 11px; color: #6b6478; }
+.card button[type=submit] { width: 100%; padding: 10px; font-size: 15px; }
+
+.fund { display: grid; gap: 6px; font-size: 14px; font-weight: 700; }
+.fund input {
+  font: inherit;
+  font-size: 18px; /* 16px or more stops iOS zooming into the field */
+  padding: 8px;
+  border: 3px solid #23202e;
+  background: #fff;
+}
+.card .est { margin: 8px 0 12px; font-size: 12px; color: #3f7a4a; min-height: 1.5em; }

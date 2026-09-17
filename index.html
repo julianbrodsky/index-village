@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'">
+  <title>Index Village</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div class="hud-title">Index Village</div>
+    <div id="place"></div>
+    <div id="total"></div>
+    <div class="hint">WASD to walk, walk into a door</div>
+    <button id="edit" type="button">Edit fund</button>
+  </div>
+
+  <div id="setup" hidden>
+    <form class="card">
+      <h1>Index Village</h1>
+      <p>How much do you have in an S&amp;P 500 index fund? The ten biggest
+        companies in it each get a house, and each house stamps out your slice
+        of what that company makes in a year.</p>
+      <label class="fund">
+        <span>Dollars in the fund</span>
+        <input id="dollars" type="number" min="0" step="any" inputmode="decimal" placeholder="10000">
+      </label>
+      <p class="est"></p>
+      <button type="submit">Enter the village</button>
+      <p class="fine">Production and profit figures are very rough estimates, for fun, not advice.</p>
+    </form>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
